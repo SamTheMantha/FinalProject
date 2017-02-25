@@ -1,0 +1,31 @@
+{
+  "name": "app",
+  "productName": "App",
+  "version": "0.0.0",
+  "description": "",
+  "author": {
+    "name": "Samantha Davies",
+    "email": "",
+    "url": ""
+  },
+  "scripts": {
+    "start": "electron .",
+    "build": "electron-packager . --out=dist --asar --overwrite"
+  },
+  "files": [
+    "index.js",
+    "index.html",
+    "index.css"
+  ],
+  "keywords": [
+    "electron-app",
+    "electron"
+  ],
+  "dependencies": {
+    "electron-debug": "^1.0.0"
+  },
+  "devDependencies": {
+    "electron-packager": "^8.0.0",
+    "electron": "^1.0.1"
+  }
+}
