@@ -1,1 +1,35 @@
-<h1> Hello World</h1>
+<div id='Table'>
+</div>
+
+<script>
+    var $=require('jquery');
+    var csv = require('csv');
+
+    function MakeTable(data){
+        var html = `<table>
+                        <tr>
+                            <th>Column 1</th>
+                            <th>Column 2</th>
+                        </tr>
+                        <tbody>`;
+
+        for (var i = 0; i < data.length; ++i) {
+            html += '<tr>';
+            for (var j = 0; j < data[i].length; ++j ) {
+                html += '<td>' + data[i][j] + '</td>';
+            }
+            html += "</tr>";
+        }
+        html += '</body></table>';
+
+        $(html).appendTo('#Table');
+    };   
+
+
+    csv.generate({seed: 1, columns: 4, length: 10}, function(err, data) {
+        csv.parse(data, function(err, data) {
+            console.log(data);
+            MakeTable(data);
+        });
+    });
+</script>
