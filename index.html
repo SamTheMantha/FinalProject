@@ -1,36 +1,6 @@
-<div id='Table'>
-</div>
-
-<script>
-    var $=require('jquery');
-    var csv = require('csv');
-    var fs = require('fs');
-
-    function MakeTable(data){
-        var html = `<table>
-                        <tr>
-                            <th>Column 1</th>
-                            <th>Column 2</th>
-                        </tr>
-                        <tbody>`;
-
-        for (var i = 0; i < data.length; ++i) {
-            html += '<tr>';
-            for (var j = 0; j < data[i].length; ++j ) {
-                html += '<td>' + data[i][j] + '</td>';
-            }
-            html += "</tr>";
-        }
-        html += '</body></table>';
-
-        $(html).appendTo('#Table');
-    };   
-
-    var parser = csv.parse({}, function(err, data) {
-        console.log(data);
-        MakeTable(data);
-    });
-
-    fs.createReadStream('../TestCsv.csv').pipe(parser);
-
-</script>
+<div id="Table"></div>
+<input type="file" accept=".csv" id="myFile"/>
+<script src="assets/js/three.js"></script>
+<script src="assets/js/OBJLoader.js"></script>
+<script src="assets/js/OrbitControls.js"></script>
+<script src="app.js"></script>
