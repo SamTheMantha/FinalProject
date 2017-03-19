@@ -2,25 +2,39 @@ var $ = require('jquery');
 var csv = require('csv');
 var fs = require('fs');
 
+var tableData;
+var currentDataIndex = 0;
+
 //Make the table
 function MakeTable(data){
+
+    tableData = data;
 
     //Give the columns headers
     var html = `<table>
                     <tr>
-                        <th>Column 1</th>
-                        <th>Column 2</th>
+                        <th>Load position</th>
+                        <th>Magnitude</th>
                     </tr>
                     <tbody>`;
     
-    //Make number of rows dependant on data
-    for (var i = 0; i < data.length; ++i) {
-        html += '<tr>';
-        for (var j = 0; j < data[i].length; ++j ) {
-            html += '<td>' + data[i][j] + '</td>';
-        }
-        html += "</tr>";
+    // create rows with column 1 being number
+    if(currentDataIndex > tableData.length) {
+        currentDataIndex = tableData.length;
     }
+
+    if(tableData[currentDataIndex] != null) {
+
+        for (var j = 0; j < data[currentDataIndex].length; ++j ) {
+            html += '<tr>';
+
+            html += '<td>' + parseInt(j+1) + '</td>';
+            html += '<td>' + data[currentDataIndex][j] + '</td>';
+            
+            html += "</tr>";
+        }
+    }
+
     html += '</body></table>';
 
     //Send this data to table
