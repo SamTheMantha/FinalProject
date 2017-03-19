@@ -82,15 +82,13 @@ init();
 animate();
 
 function init() {
-    container = document.createElement( 'div' );
-    document.body.appendChild( container );
-    camera = new THREE.PerspectiveCamera( 45, window.innerWidth / window.innerHeight, 1, 2000 );
+    container = document.getElementById( "Canvas" );
+    camera = new THREE.PerspectiveCamera( 45, windowHalfX / window.innerHeight, 1, 2000 );
     camera.position.z = 550;
 
-    renderer = new THREE.WebGLRenderer();
+    renderer = new THREE.WebGLRenderer({canvas: container});
     renderer.setPixelRatio( window.devicePixelRatio );
-    renderer.setSize( window.innerWidth, window.innerHeight );
-    container.appendChild( renderer.domElement );
+    renderer.setSize( windowHalfX, window.innerHeight );
 
     controls = new THREE.OrbitControls( camera, renderer.domElement );
     controls.enableDamping = true;
@@ -127,9 +125,9 @@ function init() {
 function onWindowResize() {
     windowHalfX = window.innerWidth / 2;
     windowHalfY = window.innerHeight / 2;
-    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.aspect = windowHalfX / window.innerHeight;
     camera.updateProjectionMatrix();
-    renderer.setSize( window.innerWidth, window.innerHeight );
+    renderer.setSize( windowHalfX, window.innerHeight );
 }
 
 function animate() {
