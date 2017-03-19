@@ -22,6 +22,9 @@ function MakeTable(data){
     if(currentDataIndex > tableData.length) {
         currentDataIndex = tableData.length;
     }
+    if(currentDataIndex < 0){
+        currentDataIndex = 0;
+    }
 
     if(tableData[currentDataIndex] != null) {
 
@@ -41,6 +44,15 @@ function MakeTable(data){
     $(html).appendTo($('#Table').empty());
 };   
 
+$('#previous').click(function(){
+    --currentDataIndex;
+    MakeTable(tableData);
+});
+
+$('#next').click(function(){
+    ++currentDataIndex;
+    MakeTable(tableData);
+});
 
 //File path of data
 $(document).ready(function(){
