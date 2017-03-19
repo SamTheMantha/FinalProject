@@ -73,11 +73,11 @@ function init() {
     // scene
 
     scene = new THREE.Scene();
-    var ambient = new THREE.AmbientLight( 0x101030 );
-    scene.add( ambient );
-    var directionalLight = new THREE.DirectionalLight( 0xffeedd );
-    directionalLight.position.set( 0, 0, 1 );
-    scene.add( directionalLight );
+ //   var ambient = new THREE.AmbientLight( 0x101030 );
+ //   scene.add( ambient );
+    scene.add( camera );
+    var pointLight = new THREE.PointLight( 0xeeeeff );
+    camera.add( pointLight );
 
     // model
 
