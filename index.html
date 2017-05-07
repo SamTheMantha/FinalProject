@@ -35,6 +35,36 @@
             </div>
         </div>
 
+        <script type="x-shader/x-vertex" id="vertexshader">
+            uniform vec3 color;
+            varying vec3 v_normal;
+            varying vec3 v_color;
+			void main() {
+                v_normal = normal * normalMatrix;
+				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
+                if(length(position - vec3(0,0,0)) < 100.0)
+                {
+                   v_color = color; 
+                }
+                else
+                {
+                    v_color = vec3(0.6, 0.0, 0.0); 
+                }
+			}
+		</script>
+
+        <script type="x-shader/x-fragment" id="fragmentshader">
+            varying vec3 v_normal;
+            varying vec3 v_color;
+			void main() {
+				gl_FragColor = vec4(v_color, 1.0);
+                vec3 normal = normalize(v_normal);
+                vec4 cam =  vec4( cameraPosition, 1.0 ) * viewMatrix;
+                float light = dot(normal, normalize(cam.xyz));
+                gl_FragColor.rgb *= light;
+			}
+		</script>
+
         <script src="assets/js/three.js"></script>
         <script src="assets/js/Chart.js"></script>
         <script src="assets/js/OBJLoader.js"></script>

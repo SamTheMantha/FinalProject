@@ -57,13 +57,21 @@ function init() {
     controls = new THREE.OrbitControls( camera, renderer.domElement );
     controls.enableDamping = true;
     controls.dampingFactor = 1;
+    controls.enableZoom = false;
 
     // scene
 
     scene = new THREE.Scene();
     scene.add( camera );
-    var pointLight = new THREE.PointLight( 0xeeeeff );
-    camera.add( pointLight );
+
+    var uniforms = {color:     { value: new THREE.Vector3(1,1,0) }};
+
+    //material
+
+    var shaderMaterial = new THREE.ShaderMaterial( {
+				uniforms: uniforms,
+				vertexShader: document.getElementById( 'vertexshader' ).textContent,
+				fragmentShader: document.getElementById( 'fragmentshader' ).textContent });
 
     // model
 
@@ -81,6 +89,8 @@ function init() {
     };
     var loader = new THREE.OBJLoader( manager );
     loader.load( 'assets/model/prosthetic.obj', function ( object ) {
+        console.log(object);
+        object.children[0].material = shaderMaterial;
         scene.add( object );
     }, onProgress, onError );
     
