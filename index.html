@@ -36,20 +36,45 @@
         </div>
 
         <script type="x-shader/x-vertex" id="vertexshader">
-            uniform vec3 color;
+            uniform vec3 positions[8];
+            uniform vec3 colors[8];
+
             varying vec3 v_normal;
             varying vec3 v_color;
 			void main() {
                 v_normal = normal * normalMatrix;
 				gl_Position = projectionMatrix * modelViewMatrix * vec4( position, 1.0 );
-                if(length(position - vec3(0,0,0)) < 100.0)
-                {
-                   v_color = color; 
-                }
-                else
-                {
-                    v_color = vec3(0.6, 0.0, 0.0); 
-                }
+
+                // calc distance
+                float dist1 = length(position - positions[0]);
+                float dist2 = length(position - positions[1]);
+                float dist3 = length(position - positions[2]);
+                float dist4 = length(position - positions[3]);
+                float dist5 = length(position - positions[4]);
+                float dist6 = length(position - positions[5]);
+                float dist7 = length(position - positions[6]);
+                float dist8 = length(position - positions[7]);
+
+                //calc weighting
+                float sumdist = dist1 + dist2 + dist3 + dist4 + dist5 + dist6 + dist7 + dist8;
+
+                float weight1 = dist1/sumdist;
+                float weight2 = dist2/sumdist;
+                float weight3 = dist3/sumdist;
+                float weight4 = dist4/sumdist;
+                float weight5 = dist5/sumdist;
+                float weight6 = dist6/sumdist;
+                float weight7 = dist7/sumdist;
+                float weight8 = dist8/sumdist;
+
+                v_color += (1.0 - weight1) * colors[0];
+                v_color += (1.0 - weight2) * colors[1];
+                v_color += (1.0 - weight3) * colors[2];
+                v_color += (1.0 - weight4) * colors[3];
+                v_color += (1.0 - weight5) * colors[4];
+                v_color += (1.0 - weight6) * colors[5];
+                v_color += (1.0 - weight7) * colors[6];
+                v_color += (1.0 - weight8) * colors[7];
 			}
 		</script>
 
