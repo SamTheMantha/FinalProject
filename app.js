@@ -7,12 +7,22 @@ var table = require('./table.js');
 $('#previous').click(function () {
     table.currentDataIndex--;
     table.MakeTable(table.tableData);
+    shaderMaterial.uniforms.colors.value = calcColorValues();
 });
 
 $('#next').click(function () {
     table.currentDataIndex++;
     table.MakeTable(table.tableData);
+    shaderMaterial.uniforms.colors.value = calcColorValues();
 });
+
+$('#enterFrame').click(function () {
+    var frameNumber = parseInt($('#frameNumber').val());
+    console.log(frameNumber);
+    table.currentDataIndex = frameNumber;
+    table.MakeTable(table.tableData);
+    shaderMaterial.uniforms.colors.value = calcColorValues();
+})
 
 //File path of data
 $(document).ready(function () {
@@ -23,6 +33,8 @@ $(document).ready(function () {
             console.log(data);
             table.MakeTable(data);
             table.resetChart();
+
+            shaderMaterial.uniforms.colors.value = calcColorValues();
         });
 
         //File path of data
@@ -38,12 +50,15 @@ var myLineChart = new Chart(ctx, {
 
 var container;
 var camera, scene, renderer;
+var shaderMaterial;
 var controls;
 var windowHalfX = window.innerWidth / 2;
 var windowHalfY = window.innerHeight / 2;
 
 init();
 animate();
+
+
 
 function init() {
     container = document.getElementById("Canvas");
@@ -65,33 +80,33 @@ function init() {
     scene.add(camera);
 
     var uniforms = {
-        "positions": {
-            type: "v3v", value: [
-                new THREE.Vector3(0, -1.064, -0.792),
-                new THREE.Vector3(-0.792, -1.064, 0),
-                new THREE.Vector3(0, -1.064, 0.793),
-                new THREE.Vector3(0.793, -1.064, 0),
-                new THREE.Vector3(0, 0.164, -0.987),
-                new THREE.Vector3(-0.924, 0.16, 0),
-                new THREE.Vector3(0, 0.16, 0.924),
-                new THREE.Vector3(0.924, 0.16, 0)]
-        },
-        "colors": {
-            type: "v3v", value: [
-                new THREE.Vector3(1, 0, 0),
-                new THREE.Vector3(1, 1, 0),
-                new THREE.Vector3(1, 0, 0),
-                new THREE.Vector3(1, 1, 0),
-                new THREE.Vector3(1, 1, 0),
-                new THREE.Vector3(1, 0, 0),
-                new THREE.Vector3(1, 1, 0),
-                new THREE.Vector3(1, 0, 0)]
-        }
-    };
+    "positions": {
+        type: "v3v", value: [
+            new THREE.Vector3(0, -1.064, -0.792),
+            new THREE.Vector3(-0.792, -1.064, 0),
+            new THREE.Vector3(0, -1.064, 0.793),
+            new THREE.Vector3(0.793, -1.064, 0),
+            new THREE.Vector3(0, 0.164, -0.987),
+            new THREE.Vector3(-0.924, 0.16, 0),
+            new THREE.Vector3(0, 0.16, 0.924),
+            new THREE.Vector3(0.924, 0.16, 0)]
+    },
+    "colors": {
+        type: "v3v", value: [
+            new THREE.Vector3(0.9, 0.9, 0.9),
+            new THREE.Vector3(0.9, 0.9, 0.9),
+            new THREE.Vector3(0.9, 0.9, 0.9),
+            new THREE.Vector3(0.9, 0.9, 0.9),
+            new THREE.Vector3(0.9, 0.9, 0.9),
+            new THREE.Vector3(0.9, 0.9, 0.9),
+            new THREE.Vector3(0.9, 0.9, 0.9),
+            new THREE.Vector3(0.9, 0.9, 0.9)]
+    }
+};
 
     //material
 
-    var shaderMaterial = new THREE.ShaderMaterial({
+        shaderMaterial = new THREE.ShaderMaterial({
         uniforms: uniforms,
         vertexShader: document.getElementById('vertexshader').textContent,
         fragmentShader: document.getElementById('fragmentshader').textContent
@@ -137,4 +152,37 @@ function animate() {
 function render() {
     camera.lookAt(scene.position);
     renderer.render(scene, camera);
+}
+
+function calcColorValues() {
+    var currentReading = table.tableData[table.currentDataIndex];
+    console.log(currentReading);
+
+    var highest = currentReading[0];
+    var lowest = currentReading[0];
+
+    for (var i = 0; i < currentReading.length; i++) {
+        if (currentReading[i] >= highest) {
+            highest = currentReading[i];
+        }
+        else if (currentReading[i] <= lowest) {
+            lowest = currentReading[i];
+        }
+    }
+
+    console.log(highest, lowest);
+
+    var returnArray = [];
+
+    for (var i = 0; i < currentReading.length; i++) {
+
+        var weighting = ((currentReading[i] - lowest) / (highest - lowest));
+
+        returnArray.push(new THREE.Vector3(1, weighting, 0));
+    }
+
+    console.log(returnArray);
+
+    return returnArray;
+
 }

@@ -26,6 +26,11 @@
                     <div>
                         <button class="btn" id="previous"> previous </button>
                         <button class="btn" id="next"> next </button>
+                        <form>
+                            Frame number:<br>
+                            <input type="number" id="frameNumber"><br>
+                        </form>
+                        <button class="btn" id="enterFrame"> Enter </button>
                         <canvas id="myChart" width="400" height="400"></canvas>
                     </div>
                 </div>
@@ -57,14 +62,14 @@
 
                 //calc weighting
 
-                float weight1 = (1.12 - dist1);
-                float weight2 = (1.12 - dist2);
-                float weight3 = (1.12 - dist3);
-                float weight4 = (1.12 - dist4);
-                float weight5 = (1.12 - dist5);
-                float weight6 = (1.12 - dist6);
-                float weight7 = (1.12 - dist7);
-                float weight8 = (1.12 - dist8);
+                float weight1 = (1.2 - dist1);
+                float weight2 = (1.2 - dist2);
+                float weight3 = (1.2 - dist3);
+                float weight4 = (1.2 - dist4);
+                float weight5 = (1.2 - dist5);
+                float weight6 = (1.2 - dist6);
+                float weight7 = (1.2 - dist7);
+                float weight8 = (1.2 - dist8);
 
                 vec4 weightedColor;
                 weightedColor += max(0.0,weight1) * vec4(colors[0],1.0);
