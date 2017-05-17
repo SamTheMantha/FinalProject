@@ -68,9 +68,9 @@ function init() {
         "positions": {
             type: "v3v", value: [
                 new THREE.Vector3(0, -1.064, -0.792),
-                new THREE.Vector3(-0.792, -1.604, 0),
-                new THREE.Vector3(0, -1.604, 0.793),
-                new THREE.Vector3(0.793, -1.604, 0),
+                new THREE.Vector3(-0.792, -1.064, 0),
+                new THREE.Vector3(0, -1.064, 0.793),
+                new THREE.Vector3(0.793, -1.064, 0),
                 new THREE.Vector3(0, 0.164, -0.987),
                 new THREE.Vector3(-0.924, 0.16, 0),
                 new THREE.Vector3(0, 0.16, 0.924),
