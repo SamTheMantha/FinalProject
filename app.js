@@ -176,7 +176,7 @@ function calcColorValues() {
 
     for (var i = 0; i < currentReading.length; i++) {
 
-        var weighting = ((currentReading[i] - lowest) / (highest - lowest));
+        var weighting = (1.0-(currentReading[i] - lowest) / (highest - lowest));
 
         returnArray.push(new THREE.Vector3(1, weighting, 0));
     }
