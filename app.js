@@ -4,6 +4,8 @@ var fs = require('fs');
 
 var table = require('./table.js');
 
+var relativeToAllData = false;
+
 $('#previous').click(function () {
     table.currentDataIndex--;
     table.MakeTable(table.tableData);
@@ -24,7 +26,7 @@ $('#frameNumber').on('change',function () {
     table.currentDataIndex = frameNumber;
     table.MakeTable(table.tableData);
     shaderMaterial.uniforms.colors.value = calcColorValues();
-})
+});
 
 //File path of data
 $(document).ready(function () {
@@ -155,23 +157,48 @@ function render() {
 }
 
 function calcColorValues() {
-    var currentReading = table.tableData[table.currentDataIndex];
-    console.log(currentReading);
 
-    var highest = currentReading[0];
-    var lowest = currentReading[0];
+    var highest;
+    var lowest;
 
-    for (var i = 0; i < currentReading.length; i++) {
-        if (currentReading[i] >= highest) {
-            highest = currentReading[i];
+    if(relativeToAllData === true) {
+        
+        var data = table.tableData;
+
+        highest = data[0][0];
+        lowest = data[0][0];
+
+        for (var i = 0; i < data.length; i++) {
+            for (var j = 0; j < data[i].length; j++) {
+                
+                if (data[i][j] >= highest) {
+                    highest = data[i][j];
+                }
+                else if (data[i][j] <= lowest) {
+                    lowest = data[i][j];
+                }
+            }
         }
-        else if (currentReading[i] <= lowest) {
-            lowest = currentReading[i];
+    }
+    else {
+        var data = table.tableData[table.currentDataIndex];
+
+        highest = data[0];
+        lowest = data[0];
+
+        for (var i = 0; i < data.length; i++) {
+            if (data[i] >= highest) {
+                highest = data[i];
+            }
+            else if (data[i] <= lowest) {
+                lowest = data[i];
+            }
         }
     }
 
     console.log(highest, lowest);
 
+    var currentReading = table.tableData[table.currentDataIndex];
     var returnArray = [];
 
     for (var i = 0; i < currentReading.length; i++) {
