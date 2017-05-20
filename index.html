@@ -2,10 +2,11 @@
     <head>
         <meta charset="utf-8">
         <meta http-equiv="X-UA-Compatible" content="IE=edge">
-        <title>FinalProject</title>
+        <title>Prosthetic Stress Visualiser</title>
         <meta name="description" content="">
         <meta name="viewport" content="user-scalable=no, width=device-width, initial-scale=1, maximum-scale=1">
         <link rel="stylesheet" href="assets/css/bootstrap.css">
+        <link rel="stylesheet" href="assets/css/style.css">
 
         <style>
             .changeData {
@@ -21,16 +22,27 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-6 col-xs-6">
-                    <div id="Table"></div>
-                    <input type="file" accept=".csv" id="myFile"/>
-                    <div>
-                        <button class="btn" id="previous"> previous </button>
-                        <button class="btn" id="next"> next </button>
-                        <form>
-                            Frame number:<br>
-                            <input type="number" id="frameNumber"><br>
-                        </form>
-                        <button class="btn" id="enterFrame"> Enter </button>
+                    <div class="row">
+                        <div class="col-md-12 col-xs-12">
+                            <div class="row">
+                                <input type="file" accept=".csv" id="myFile"/>
+                                <p>
+                            </div>
+                            <div class="row" id="frameControls" hidden>
+                                <div class="col-md-3 col-xs-3"><br>
+                                    <button class="btn btn-block" id="previous"> previous </button>
+                                </div>
+                                <div class="col-md-6 col-xs-6">
+                                    Frame number:
+                                    <blacktext><input style="width: 100%" type="number" id="frameNumber"></blacktext>
+                                </div>
+                                <div class="col-md-3 col-xs-3"><br>
+                                    <button class="btn btn-block" id="next"> next </button><br>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
                         <canvas id="myChart" width="400" height="400"></canvas>
                     </div>
                 </div>

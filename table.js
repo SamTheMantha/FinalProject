@@ -40,8 +40,8 @@ module.exports = {
 
         html += '</body></table>';
 
-        //Send this data to table
-        $(html).appendTo($('#Table').empty());
+        //Send this data to table - uncomment to view table
+        //$(html).appendTo($('#Table').empty());
     },
 
     resetChart: function() {
@@ -245,6 +245,22 @@ module.exports = {
         myLineChart = new Chart(ctx, {
             type: 'line',
             data: data,
+            options: {
+                scales: {
+                    xAxes: [{
+                        ticks: {
+                            display: false,
+                        },
+                        gridLines: {
+                            display: false,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Frames'
+                        }
+                    }]
+                }
+            }
         });
     }
 };

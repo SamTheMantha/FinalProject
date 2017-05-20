@@ -1,7 +1,7 @@
 {
-  "name": "app",
-  "productName": "App",
-  "version": "0.0.0",
+  "name": "prosthetic stress visualiser",
+  "productName": "Prosthetic Stress Visualiser",
+  "version": "0.0.1",
   "description": "",
   "author": {
     "name": "Samantha Davies",

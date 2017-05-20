@@ -8,15 +8,17 @@ $('#previous').click(function () {
     table.currentDataIndex--;
     table.MakeTable(table.tableData);
     shaderMaterial.uniforms.colors.value = calcColorValues();
+    $('#frameNumber').val(table.currentDataIndex);
 });
 
 $('#next').click(function () {
     table.currentDataIndex++;
     table.MakeTable(table.tableData);
     shaderMaterial.uniforms.colors.value = calcColorValues();
+    $('#frameNumber').val(table.currentDataIndex);
 });
 
-$('#enterFrame').click(function () {
+$('#frameNumber').on('change',function () {
     var frameNumber = parseInt($('#frameNumber').val());
     console.log(frameNumber);
     table.currentDataIndex = frameNumber;
@@ -31,21 +33,18 @@ $(document).ready(function () {
         //Create table from data
         var parser = csv.parse({}, function (err, data) {
             console.log(data);
+            $('#frameControls').show();
             table.MakeTable(data);
             table.resetChart();
 
             shaderMaterial.uniforms.colors.value = calcColorValues();
+            $('#frameNumber').val(table.currentDataIndex);
         });
 
         //File path of data
         let filePath = document.getElementById("myFile").files[0].path
         fs.createReadStream(filePath).pipe(parser);
     });
-});
-
-var ctx = document.getElementById("myChart");
-var myLineChart = new Chart(ctx, {
-    type: 'line'
 });
 
 var container;
@@ -77,6 +76,7 @@ function init() {
     // scene
 
     scene = new THREE.Scene();
+    scene.background = new THREE.Color( 0x202020 );
     scene.add(camera);
 
     var uniforms = {
