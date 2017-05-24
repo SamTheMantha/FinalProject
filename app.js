@@ -28,6 +28,22 @@ $('#frameNumber').on('change',function () {
     shaderMaterial.uniforms.colors.value = calcColorValues();
 });
 
+$('#relativeTo').click(function () {
+
+    var value = $('#relativeTo').html()
+    if (value == "Relative to: Frame")
+    {
+        $('#relativeTo').html("Relative to: All");
+        relativeToAllData = true;
+    }
+    else {
+        $('#relativeTo').html("Relative to: Frame");
+        relativeToAllData = false;
+    }
+    table.MakeTable(table.tableData);
+    shaderMaterial.uniforms.colors.value = calcColorValues();
+});
+
 //File path of data
 $(document).ready(function () {
     $("#myFile").on('change', function () {

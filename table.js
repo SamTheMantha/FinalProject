@@ -258,6 +258,18 @@ module.exports = {
                             display: true,
                             labelString: 'Frames'
                         }
+                    }],
+                    yAxes: [{
+                        ticks: {
+                            display: false,
+                        },
+                        gridlines: {
+                            display: false,
+                        },
+                        scaleLabel: {
+                            display: true,
+                            labelString: 'Pressure Magnitude'
+                        }
                     }]
                 }
             }
