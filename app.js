@@ -36,6 +36,7 @@ $(document).ready(function () {
         var parser = csv.parse({}, function (err, data) {
             console.log(data);
             $('#frameControls').show();
+            $('#prosthetic').show();
             table.MakeTable(data);
             table.resetChart();
 
